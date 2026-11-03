@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator Web Application</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>Calculator</h1>
+      <span class="badge">Web Application &bull; Frontend &amp; Backend</span>
+    </header>
+
+    <main class="calculator-layout">
+      <!-- Calculator Main Body -->
+      <section class="calculator-card" aria-label="Calculator Device">
+        <div class="display-container">
+          <div class="status-bar">
+            <span id="mem-indicator" class="mem-tag" style="display: none;">M</span>
+            <span id="expr-display" class="expr-preview"></span>
+          </div>
+          <div id="main-display" class="main-display" tabindex="0" aria-live="polite">0</div>
+        </div>
+
+        <!-- Memory Row -->
+        <div class="keypad-row memory-row">
+          <button type="button" class="btn btn-mem" data-action="mc">MC</button>
+          <button type="button" class="btn btn-mem" data-action="mr">MR</button>
+          <button type="button" class="btn btn-mem" data-action="m-plus">M+</button>
+          <button type="button" class="btn btn-mem" data-action="m-minus">M-</button>
+          <button type="button" class="btn btn-mem" data-action="ms">MS</button>
+        </div>
+
+        <!-- Main Keypad Grid -->
+        <div class="keypad-grid">
+          <button type="button" class="btn btn-action" data-action="clear">AC</button>
+          <button type="button" class="btn btn-action" data-action="backspace">&larr;</button>
+          <button type="button" class="btn btn-action" data-val="^">^</button>
+          <button type="button" class="btn btn-op" data-val="/">÷</button>
+
+          <button type="button" class="btn btn-action" data-action="sqrt">&radic;</button>
+          <button type="button" class="btn btn-action" data-val="(">(</button>
+          <button type="button" class="btn btn-action" data-val=")">)</button>
+          <button type="button" class="btn btn-op" data-val="*">&times;</button>
+
+          <button type="button" class="btn btn-num" data-val="7">7</button>
+          <button type="button" class="btn btn-num" data-val="8">8</button>
+          <button type="button" class="btn btn-num" data-val="9">9</button>
+          <button type="button" class="btn btn-op" data-val="-">&minus;</button>
+
+          <button type="button" class="btn btn-num" data-val="4">4</button>
+          <button type="button" class="btn btn-num" data-val="5">5</button>
+          <button type="button" class="btn btn-num" data-val="6">6</button>
+          <button type="button" class="btn btn-op" data-val="+">+</button>
+
+          <button type="button" class="btn btn-num" data-val="1">1</button>
+          <button type="button" class="btn btn-num" data-val="2">2</button>
+          <button type="button" class="btn btn-num" data-val="3">3</button>
+          <button type="button" class="btn btn-op" data-val="%">%</button>
+
+          <button type="button" class="btn btn-num btn-zero" data-val="0">0</button>
+          <button type="button" class="btn btn-num" data-val=".">.</button>
+          <button type="button" class="btn btn-equal" data-action="equals">=</button>
+        </div>
+      </section>
+
+      <!-- History Panel -->
+      <aside class="history-card" aria-label="Calculation History">
+        <div class="history-header">
+          <h2>History</h2>
+          <button type="button" id="clear-history-btn" class="btn-text">Clear</button>
+        </div>
+        <ul id="history-list" class="history-list">
+          <li class="empty-state">No calculations yet.</li>
+        </ul>
+      </aside>
+    </main>
+
+    <footer class="app-footer">
+      <p>Modular Python Backend API with safe AST expression parsing &amp; Responsive Frontend.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

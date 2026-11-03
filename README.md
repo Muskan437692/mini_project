@@ -1,11 +1,15 @@
-# Simple Calculator
+# Simple Calculator & Web Application
 
-A modular, well-structured, and safe Python calculator with both an interactive Command-Line Interface (CLI) and an easy-to-use Python library API.
+A modular, well-structured, and safe Python calculator featuring an interactive Web Application (Frontend & Backend API), a Command-Line Interface (CLI), and a clean Python library API.
 
 ---
 
 ## Features
 
+- **Web Application (Frontend + Backend)**:
+  - Modern, responsive UI with calculator layout, display, keypad, memory controls, and history list.
+  - Interactive evaluation, click-to-recall history entries, and keyboard navigation.
+  - Built-in lightweight HTTP web server and REST API (`/api/evaluate`, `/api/memory`, `/api/history`, `/api/reset`).
 - **Standard Arithmetic Operations**: Addition, subtraction, multiplication, division, modulo, exponentiation (using `^` or `**`), and square root (`sqrt`).
 - **Safe Expression Evaluation**: Expression evaluation powered by Python's Abstract Syntax Tree (`ast`), completely avoiding unsafe `eval()`.
 - **Stateful Calculator Engine**:
@@ -16,7 +20,7 @@ A modular, well-structured, and safe Python calculator with both an interactive 
   - Evaluate expressions non-interactively via `-e / --eval` or command-line arguments.
   - Interactive REPL with built-in help and history display.
 - **Robust Error Handling**: Dedicated custom exception hierarchy for division by zero, negative square roots, and malformed inputs.
-- **Comprehensive Test Suite**: 100% standard library `unittest` suite.
+- **Comprehensive Test Suite**: 100% standard library `unittest` suite testing operations, engine, CLI, and web server API.
 
 ---
 
@@ -33,115 +37,43 @@ A modular, well-structured, and safe Python calculator with both an interactive 
 │       ├── cli.py              # CLI parser, REPL interface, output formatter
 │       ├── engine.py           # Calculator class, history, SafeExpressionEvaluator
 │       ├── exceptions.py       # Custom exception hierarchy
-│       └── operations.py       # Validated arithmetic operations
+│       ├── operations.py       # Validated arithmetic operations
+│       ├── web_server.py       # Lightweight HTTP REST API server & static file server
+│       └── static/             # Web Frontend assets
+│           ├── index.html      # Calculator single-page web app
+│           ├── style.css       # Responsive dark-theme styling
+│           └── app.js          # Interactive frontend client
 └── tests/
     ├── __init__.py
     ├── test_cli.py             # CLI flags and REPL integration tests
     ├── test_engine.py          # Calculator state, memory, and AST expression tests
-    └── test_operations.py      # Core arithmetic & boundary test cases
+    ├── test_operations.py      # Core arithmetic & boundary test cases
+    └── test_web.py             # HTTP server and REST API tests
 ```
 
 ---
 
-## Installation & Setup
+## Running the Web Application
 
-No third-party runtime dependencies are required—the project relies solely on the Python 3 standard library.
-
-Install in editable mode:
+Start the web server:
 ```bash
-pip install -e .
+PYTHONPATH=src python3 src/calculator/web_server.py
 ```
+Then open your browser to `http://localhost:8000/`.
 
 ---
 
-## Usage
-
-### 1. Command-Line Interface (CLI)
+## Command-Line Interface (CLI)
 
 #### Direct Evaluation:
 ```bash
-# Using flag -e
-calculator -e "2 + 3 * 4"
-# Output: 14
-
-# Or via python -m calculator
 python3 -m calculator -e "sqrt(144) + 2 ^ 3"
 # Output: 20
-
-# Directly passing expression arguments
-python3 -m calculator "10 / (2 + 3)"
-# Output: 2
 ```
 
 #### Interactive REPL:
-Launch interactive mode by running `calculator` or `python3 -m calculator`:
-
-```
-Simple Calculator CLI (Type 'help' for commands, 'quit' to exit)
-Current Value: 0
-calc> 25 * 4
-= 100
-calc> add 50
-= 150
-calc> ms
-Memory Stored: 150
-calc> clear
-= 0
-calc> mr
-= 150
-calc> sqrt
-= 12.2474
-calc> history
- 1. 25 * 4 = 100
- 2. 100 + 50 = 150
- 3. sqrt(150) = 12.2474
-calc> quit
-Goodbye!
-```
-
----
-
-### 2. Python API
-
-#### Evaluating String Expressions
-```python
-from calculator import evaluate
-
-result = evaluate("(5 + 3) * 2 ^ 3")
-print(result)  # 64
-```
-
-#### Using the Stateful Calculator
-```python
-from calculator import Calculator
-
-calc = Calculator(10)
-calc.add(5)          # 15
-calc.multiply(2)     # 30
-calc.square_root()   # 5.477225575051661
-
-# Memory
-calc.memory_store()  # stores current value in memory
-calc.reset(0)        # resets running total
-calc.memory_recall() # recalls 5.477225575051661
-
-# History
-for entry in calc.history:
-    print(f"{entry.expression_or_op} = {entry.result}")
-```
-
-#### Individual Operations
-```python
-from calculator import add, divide, square_root
-from calculator.exceptions import DivisionByZeroError
-
-print(add(10, 20))  # 30
-print(divide(20, 4))  # 5.0
-
-try:
-    divide(1, 0)
-except DivisionByZeroError as err:
-    print("Handled safely:", err)
+```bash
+python3 -m calculator
 ```
 
 ---
